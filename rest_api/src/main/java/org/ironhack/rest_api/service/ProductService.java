@@ -26,7 +26,7 @@ public class ProductService {
 
     public Product save(String name, Double price, String category, int quantity) {
         Product product = new Product(name, price, category, quantity);
-        products.put(product.getName(), product);
+        products.put(name, product);
         return product;
 
     }

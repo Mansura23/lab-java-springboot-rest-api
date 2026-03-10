@@ -2,6 +2,7 @@ package org.ironhack.rest_api.controller;
 
 import jakarta.validation.Valid;
 import org.ironhack.rest_api.exception.MissingKeyHeaderException;
+import org.ironhack.rest_api.model.Customer;
 import org.ironhack.rest_api.model.Product;
 import org.ironhack.rest_api.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,19 @@ public class ProductController {
                                                  @RequestParam(required = false) double higher) {
         checkApiKey(apiKey);
         return productService.findByPriceRange(lower, higher);
+    }
+    @PutMapping("/{name}")
+    public ResponseEntity<Product> updateProduct(@RequestHeader String apiKey, @PathVariable String name, @Valid @RequestBody Product product) {
+        checkApiKey(apiKey);
+        Product product1 = productService.update(name,product.getPrice(),product.getCategory(),product.getQuantity());
+        return ResponseEntity.ok(product1);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteProduct(@RequestHeader String apiKey, @PathVariable String name) {
+        checkApiKey(apiKey);
+        productService.delete(name);
+
     }
 
 

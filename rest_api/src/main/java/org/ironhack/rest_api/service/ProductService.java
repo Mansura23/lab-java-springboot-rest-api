@@ -53,12 +53,24 @@ public class ProductService {
     }
 
     public Product findByName(String name) {
-        for (Product p : products.values()) {
-            if (p.getName().equalsIgnoreCase(name)) {
-                return p;
-            }
-        }
-        throw new ProductNotFoundException("Product not found");
+       if (products.containsKey(name)) {
+           return products.get(name);
+       }
+       throw new ProductNotFoundException("Product not found");
+    }
+
+    public Product update(String name, double price, String category, int quantity) {
+        Product oldProduct = findByName(name);
+        oldProduct.setPrice(price);
+        oldProduct.setCategory(category);
+        oldProduct.setQuantity(quantity);
+        products.put(name, oldProduct);
+        return oldProduct;
+    }
+
+    public void delete(String name) {
+        findByName(name);
+        products.remove(name);
     }
 
 }

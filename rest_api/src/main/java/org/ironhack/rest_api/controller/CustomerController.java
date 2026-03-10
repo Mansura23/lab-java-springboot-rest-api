@@ -34,4 +34,16 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    @PutMapping("{email}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String email, @Valid @RequestBody Customer customer) {
+        Customer customer1=customerService.updateCustomer(customer.getName(), customer.getEmail(), customer.getAge(), customer.getAddress());
+        return ResponseEntity.ok(customer1);
+    }
+
+    @DeleteMapping("{email}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable String email) {
+        customerService.deleteCustomerByEmail(email);
+        return ResponseEntity.noContent().build();
+    }
+
 }

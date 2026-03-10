@@ -30,5 +30,19 @@ public class CustomerService {
         throw new CustomerNotFound("Customer with email " + email + " not found");
     }
 
+    public Customer updateCustomer(String name, String email, int age, String address) {
+        Customer customer = getCustomerByEmail(email);
+        customer.setName(name);
+        customer.setAge(age);
+        customer.setAddress(address);
+        customers.put(email, customer);
+        return customer;
+
+    }
+    public void deleteCustomerByEmail(String email) {
+        getCustomerByEmail(email);
+        customers.remove(email);
+    }
+
 
 }
